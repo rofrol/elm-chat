@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (div, input, text, form, button)
+import Html exposing (Html, div, input, text, form, button)
 import Html.App exposing (program)
 import Html.Attributes exposing (value, id)
 import Html.Events exposing (onInput, onSubmit)
@@ -8,6 +8,7 @@ import Dom
 import Task
 
 
+main : Program Never
 main =
     program
         { init = init
@@ -34,10 +35,12 @@ type Msg
     | SendMessage
 
 
+init : ( Model, Cmd a )
 init =
     ( Model "" [], Cmd.none )
 
 
+view : Model -> Html Msg
 view model =
     div []
         [ form [ onSubmit SendMessage ]
@@ -48,6 +51,7 @@ view model =
         ]
 
 
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Noop ->
@@ -65,5 +69,6 @@ update msg model =
             )
 
 
+subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
